@@ -8,17 +8,30 @@ from io import StringIO
 import contextlib
 
 
-@contextlib.contextmanager
-def stdoutIO(stdout=None):
-    '''
-    Capture print output of exec
-    '''
-    old = sys.stdout
-    if stdout is None:
-        stdout = StringIO()
-    sys.stdout = stdout
-    yield stdout
-    sys.stdout = old
+# @contextlib.contextmanager
+# def stdoutIO(stdout=None):
+#     '''
+#     Capture print output of exec
+#     '''
+#     old = sys.stdout
+#     if stdout is None:
+#         stdout = StringIO()
+#     sys.stdout = stdout
+#     yield stdout
+#     sys.stdout = old
+
+
+# @contextlib.contextmanager
+# def stderrIO(stderr=None):
+#     '''
+#     Capture err print output of exec
+#     '''
+#     old = sys.stderr
+#     if stderr is None:
+#         stderr = StringIO()
+#     sys.stderr = stderr
+#     yield stderr
+#     sys.stderr = old
 
 
 def runSubmission(id: int, tests: [str]) -> {str: bool}:
@@ -58,10 +71,7 @@ def runSubmission(id: int, tests: [str]) -> {str: bool}:
     # Canonical Solution
     runnable: str = getRunnable(id, tests)
 
-    with stdoutIO() as s:
-        try:
-            exec(runnable)
-        except:
-            # TODO: Sandboxing error
-            print("Syntax error")
-        return (s.getvalue())
+    local = {}
+    exec(runnable, {}, local)
+
+    return local['results']
