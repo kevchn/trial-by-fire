@@ -1,9 +1,9 @@
+![trialbyfire banner](static/banner.png)
+
 # Introduction
 Welcome to the TestOfFire! We are the world's first *test-oriented coding platform*. We help engineers of all backgrounds practice solid testing techniques that they can carry on for the rest of their career.
 
 Our mission is to bring testing back into the limelight, so that the whole world can benefit from robust, elegant, and errorless code.
-
-
 
 # Inspiration
 "Sometimes you need to fail". And in the field of Computer Science, failing test cases is one of the best ways to gain confidence that your code is efficient, elegant, and robust, once you pass all those tests.
