@@ -6,9 +6,7 @@ Welcome to the TestOfFire! We are the world's first *test-oriented coding platfo
 Our mission is to bring testing back into the limelight, so that the whole world can benefit from robust, elegant, and errorless code.
 
 # Inspiration
-"Sometimes you need to fail". And in the field of Computer Science, failing test cases is one of the best ways to gain confidence that your code is efficient, elegant, and robust, once you pass all those tests.
-
-But while testing is one of the most integral aspects of Software Engineering, it lacks the prestige and acclaim of other parts of the field such as algorithmic development, full-stack architecture, and systems-reliability engineering. Just take a look at how many resources there are to help students and job-seekers learn and practice algorithms!
+"Sometimes you need to fail". And in the field of Computer Science, writing, failing, and iterating on test cases is one of the best ways to ensure your code is resilient to errors and bugs. But even though testing is one of the most integral aspects of Software Engineering, it simply lacks the prestige and acclaim of other parts of the field such as algorithmic development, full-stack architecture, and systems-reliability engineering. Just take a look at how many resources there are to help students and job-seekers learn and practice algorithms!
 
 # Market
 This product is intended to be used by students looking to learn testing techniques for the first time, job seekers looking to practice before their next whiteboarding interview, senior engineers looking for a quick refresher in basic testing techniques, and tech companies looking to interview and/or train their prospective employees.
