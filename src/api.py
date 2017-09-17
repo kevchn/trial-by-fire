@@ -28,7 +28,7 @@ def create_submission(user_id: int, problem_id: int):
         abort(400)
     
     start_time = time()
-    submission_results: {str: bool} = runSubmission(problem_id, request.json['code'])
+    submission_results = runSubmission(problem_id, request.json['code'])
     end_time = time()
 
     # get submission runtime (0 if error)
@@ -72,10 +72,10 @@ def get_problems(problem_id: int):
 problems = [
     {
         'id': 0,
-        'title': u'Reverse words in a given string',
-        'input': u'The first line contains T denoting the number of testcases. Then follows description of testcases. Each case contains a string containing spaces and characters.',
-        'output': u'For each test case, output a single line containing the reversed String.',
-        'constraints': [u'1<=T<=20', u'1<=Length of String<=2000'],
+        'title': u'Find the index of the first occurrence of a character in a string',
+        'input': u'The first parameter is the string to be searched. Then follows the character that is to be found. The string can contain spaces and characters.',
+        'output': u'Output the index of the first occurence of the string.',
+        'constraints': [u'0<=Length of String<=100'],
         'difficulty': u'Easy',
         'complete': False
     },

@@ -1,12 +1,29 @@
 
-def getCanonicalSolution(id: int) -> str:
+def getMutants(id: int) -> [str]:
+    solution = [
+        ["""
+        """,
+        """,
+        """
+        ],
+        []
+    ]
+
+    return solution[id]
+
+def getCanonical(id: int) -> str:
     solution = ["""
-def sum(a, b):
-    return a + b
+  def find(self, string, target):
+      for i in range(len(string)):
+          if string[i] == target:
+              return i
+      return -1
+
     """,
     """
-def product(a, b):
+  def product(self, a, b):
     return a * b
+
     """]
 
     return solution[id]
@@ -16,24 +33,25 @@ def getRunnable(id: int, tests: [str]) -> str:
     Convert a set of test cases into a runnable set of tests
     '''
 
-    run_all_snippet = [
-        ""
+    test_framework = [
         "results = {}",
-        "for callable in Test.__dict__.values():",
-        "  try:",
-        "    results[callable.__name__] = callable()",
-        "  except TypeError:",
-        "    pass",
-        "results"
+        "class Test(object):",
+        "  def __init__(self):",
+        "    self.results = {}",
+        "    for i in dir(self):",
+        "      if i.startswith('test') and hasattr(getattr(self, i), '__call__'):",
+        "        result = getattr(self, i)",
+        "        self.results[result.__name__] = result()",
     ]
 
     # build runnable code
-    lines: [str] = []
-    lines.append(getCanonicalSolution(id))
-    for test in tests:
+    lines: [str] = test_framework
+    lines.append(getCanonical(id))  # add algorithm
+    for test in tests:  # add user tests
         lines.append(test)
-    lines = lines + run_all_snippet
-
+    lines.append("results = Test().results")
+    
     runnable: str = '\n'.join(lines)
+    print(runnable)
 
     return runnable

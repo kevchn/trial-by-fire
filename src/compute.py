@@ -7,7 +7,6 @@ import sys
 from io import StringIO
 import contextlib
 
-
 # @contextlib.contextmanager
 # def stdoutIO(stdout=None):
 #     '''
@@ -34,7 +33,9 @@ import contextlib
 #     sys.stderr = old
 
 
-def runSubmission(id: int, tests: [str]) -> {str: bool}:
+def runSubmission(id: int, tests: [str]):
+
+    results = {}  # status, messages and case
 
     # NOTE: For each mutant, all test cases are run.
     # A test case kills a mutant if it makes it fail (but succeeds for the solution).
@@ -48,11 +49,23 @@ def runSubmission(id: int, tests: [str]) -> {str: bool}:
 
     # TODO: Get flawed solutions that correspond to a needed test case.
 
-    # TODO: if a test case doesn't return True for canonical, end early
-    
-    # with stdoutIO() as s:
-    #     exec(runnable)
+    # CANONICAL SOLUTIONS
+    runnable: str = getRunnable(id, tests)
 
+    local = {}
+    exec(runnable, {}, local)
+
+    canonical_results = local['results']
+
+    # a test case failed on canonical solution
+    if not all(canonical_results.values()):
+        results['status'] = 'bad'
+        for key, val in canonical_results.items():
+            if not val:
+                results['case'] = key  # return bad test case
+                return results
+    
+    # ### MUTATIONS
     # mutants: {str: Callable} = get_mutants(id)
 
     # # Mutants alive by default
@@ -68,10 +81,5 @@ def runSubmission(id: int, tests: [str]) -> {str: bool}:
                 
     # return killed
 
-    # Canonical Solution
-    runnable: str = getRunnable(id, tests)
 
-    local = {}
-    exec(runnable, {}, local)
-
-    return local['results']
+        
