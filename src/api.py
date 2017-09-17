@@ -1,10 +1,11 @@
 from flask import Flask, jsonify, abort, make_response, request
 from compute import runSubmission
+from flask_cors import CORS, cross_origin
 
 from time import time
 
 app = Flask(__name__)
-
+CORS(app)
 
 # JSON Error (not HTML)
 @app.errorhandler(400)
