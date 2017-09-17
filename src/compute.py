@@ -1,7 +1,7 @@
 from flask import jsonify
 from typing import Callable
 
-from sandbox import getRunnable
+from sandbox import getRunnable, getCanonical
 
 import sys
 from io import StringIO
@@ -50,10 +50,10 @@ def runSubmission(id: int, tests: [str]):
     # TODO: Get flawed solutions that correspond to a needed test case.
 
     # CANONICAL SOLUTIONS
-    runnable: str = getRunnable(id, tests)
+    canonical_runnable: str = getRunnable(id, tests, getCanonical(id))
 
     local = {}
-    exec(runnable, {}, local)
+    exec(canonical_runnable, {}, local)
 
     canonical_results = local['results']
 

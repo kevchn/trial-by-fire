@@ -28,7 +28,7 @@ def getCanonical(id: int) -> str:
 
     return solution[id]
 
-def getRunnable(id: int, tests: [str]) -> str:
+def getRunnable(id: int, tests: [str], algorithm: str) -> str:
     '''
     Convert a set of test cases into a runnable set of tests
     '''
@@ -46,7 +46,7 @@ def getRunnable(id: int, tests: [str]) -> str:
 
     # build runnable code
     lines: [str] = test_framework
-    lines.append(getCanonical(id))  # add algorithm
+    lines.append(algorithm)  # add algorithm
     for test in tests:  # add user tests
         lines.append(test)
     lines.append("results = Test().results")
