@@ -1,12 +1,14 @@
 # Introduction
-Welcome to the TestOfFire! We are the world's first *test-oriented coding platform*. We help seasoned engineers refresh their skills and young job-seekers develop solid testing techniques that they can carry on for the rest of their career.
+Welcome to the TestOfFire! We are the world's first *test-oriented coding platform*. We help engineers of all backgrounds practice solid testing techniques that they can carry on for the rest of their career.
+
+Our mission is to bring testing back into the limelight, so that the whole world can benefit from robust, elegant, and errorless code.
+
+
 
 # Inspiration
-"Sometimes you need to fail". And in the field of Computer Science, failing is one of the best ways to know that your work is efficient, ...
+"Sometimes you need to fail". And in the field of Computer Science, failing test cases is one of the best ways to gain confidence that your code is efficient, elegant, and robust, once you pass all those tests.
 
 But while testing is one of the most integral aspects of Software Engineering, it lacks the prestige and acclaim of other parts of the field such as algorithmic development, full-stack architecture, and systems-reliability engineering. Just take a look at how many resources there are to help students and job-seekers learn and practice algorithms!
-
-The TestOfFire
 
 # Market
 This product is intended to be used by students looking to learn testing techniques for the first time, job seekers looking to practice before their next whiteboarding interview, senior engineers looking for a quick refresher in basic testing techniques, and tech companies looking to interview and/or train their prospective employees.
