@@ -24,7 +24,7 @@ def runSubmission(id: int, tests: [str]):
 
     # TODO: Get flawed solutions that correspond to a needed test case.
 
-    # CANONICAL SOLUTIONS
+    ### CANONICAL SOLUTIONS
     canonical_runnable: str = getRunnable(id, tests, getCanonical(id))
 
     local = {}
@@ -40,7 +40,7 @@ def runSubmission(id: int, tests: [str]):
                 results['case'] = key  # return bad test case
                 return results
     
-    # ### MUTATIONS
+    ### MUTATIONS
     mutants: [str] = getMutants(id)
     for mutant in mutants:
         mutant_algo, mutant_messages = mutant
@@ -60,7 +60,7 @@ def runSubmission(id: int, tests: [str]):
                 results['messages'].append(mutant_message)
         print("mutant results")
         print(mutant_results)
-    
+
     return results
 
     # # Mutants alive by default

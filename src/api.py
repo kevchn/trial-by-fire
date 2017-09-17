@@ -42,7 +42,8 @@ def create_submission(user_id: int, problem_id: int):
         }
     ]
     
-    #TODO: add to solved if solved
+    if submission_results['status'] == 'good':
+        users[user_id]['solved'].append(problem_id)
 
     return jsonify({'submission': response}), 201
 
@@ -93,12 +94,12 @@ users = [
     {
         'id': 0,
         'name': u'Kevin Chen',
-        'solved': [1]
+        'solved': []
     },
     {
         'id': 1,
         'name': u'Johann Miller',
-        'solved': []
+        'solved': [0]
     }
 ]
 
