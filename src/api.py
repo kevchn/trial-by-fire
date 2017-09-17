@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, abort, make_response, request
-from compute import run_submission
+from compute import runSubmission
 
 from time import time
 
@@ -27,7 +27,7 @@ def create_submission(user_id: int, problem_id: int):
         abort(400)
     
     start_time = time()
-    submission_results: {str: bool} = run_submission(problem_id, request.json['code'])
+    submission_results: {str: bool} = runSubmission(problem_id, request.json['code'])
     end_time = time()
 
     # get submission runtime (0 if error)

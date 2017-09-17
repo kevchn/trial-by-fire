@@ -1,12 +1,18 @@
 from flask import jsonify
 from typing import Callable
 
+from sandbox import getRunnable
+
 import sys
 from io import StringIO
 import contextlib
 
+
 @contextlib.contextmanager
 def stdoutIO(stdout=None):
+    '''
+    Capture print output of exec
+    '''
     old = sys.stdout
     if stdout is None:
         stdout = StringIO()
@@ -15,15 +21,7 @@ def stdoutIO(stdout=None):
     sys.stdout = old
 
 
-def get_canonical_solution(id: int) -> str:
-    solution = """
-def sum(a, b):
-    return a + b
-    """
-
-    return solution
-
-def run_submission(id: int, tests: str) -> {str: bool}:
+def runSubmission(id: int, tests: [str]) -> {str: bool}:
 
     # NOTE: For each mutant, all test cases are run.
     # A test case kills a mutant if it makes it fail (but succeeds for the solution).
@@ -35,20 +33,9 @@ def run_submission(id: int, tests: str) -> {str: bool}:
 
     # NOTE: using "sum a and b" as example
 
-    def canonical_solution(a, b):
-        return a + b
-
-    def mutant_negative_input(a, b):
-        return abs(a) + abs(b)
-
     # TODO: Get flawed solutions that correspond to a needed test case.
 
     # TODO: if a test case doesn't return True for canonical, end early
-
-    # Canonical Solution
-    canonical: str = get_canonical_solution(id)
-
-    runnable: str = "import unittest\n" + canonical + "\n" + tests
     
     # with stdoutIO() as s:
     #     exec(runnable)
@@ -68,10 +55,13 @@ def run_submission(id: int, tests: str) -> {str: bool}:
                 
     # return killed
 
+    # Canonical Solution
+    runnable: str = getRunnable(id, tests)
+
     with stdoutIO() as s:
         try:
             exec(runnable)
         except:
             # TODO: Sandboxing error
-            print("Something is wrong with the code")
+            print("Syntax error")
         return (s.getvalue())
