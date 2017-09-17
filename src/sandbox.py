@@ -1,12 +1,26 @@
 
-def getMutants(id: int) -> [str]:
+def getMutants(id: int) -> [(str, [str])]:
     solution = [
-        ["""
-        """,
-        """,
-        """
-        ],
-        []
+        [  # problem 1
+            ("""
+  def find(self, string, target):
+      c = -1
+      for i in range(len(string)):
+          if string[i] == target:
+              c = i
+      return c
+        """, ["Test the case where there are duplicates of the target in the string"]),
+            ("""
+  def find(self, string, target):
+      for i in range(len(string)):
+          if string[i] == target:
+              return i
+      return 0
+        """, ["Test the case where the target cannot be found","Test the case where the input is an empty string"]),
+        ], 
+        [  # problem 2
+
+        ]
     ]
 
     return solution[id]
@@ -52,6 +66,5 @@ def getRunnable(id: int, tests: [str], algorithm: str) -> str:
     lines.append("results = Test().results")
     
     runnable: str = '\n'.join(lines)
-    print(runnable)
 
     return runnable

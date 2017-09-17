@@ -1,41 +1,16 @@
 from flask import jsonify
 from typing import Callable
 
-from sandbox import getRunnable, getCanonical
+from sandbox import getRunnable, getCanonical, getMutants
 
 import sys
 from io import StringIO
 import contextlib
 
-# @contextlib.contextmanager
-# def stdoutIO(stdout=None):
-#     '''
-#     Capture print output of exec
-#     '''
-#     old = sys.stdout
-#     if stdout is None:
-#         stdout = StringIO()
-#     sys.stdout = stdout
-#     yield stdout
-#     sys.stdout = old
-
-
-# @contextlib.contextmanager
-# def stderrIO(stderr=None):
-#     '''
-#     Capture err print output of exec
-#     '''
-#     old = sys.stderr
-#     if stderr is None:
-#         stderr = StringIO()
-#     sys.stderr = stderr
-#     yield stderr
-#     sys.stderr = old
-
 
 def runSubmission(id: int, tests: [str]):
 
-    results = {}  # status, messages and case
+    results = {'status': 'good'}  # all mutations fail by default
 
     # NOTE: For each mutant, all test cases are run.
     # A test case kills a mutant if it makes it fail (but succeeds for the solution).
@@ -57,7 +32,7 @@ def runSubmission(id: int, tests: [str]):
 
     canonical_results = local['results']
 
-    # a test case failed on canonical solution
+    # a test case failed on canonical solution (one is False)
     if not all(canonical_results.values()):
         results['status'] = 'bad'
         for key, val in canonical_results.items():
@@ -66,7 +41,27 @@ def runSubmission(id: int, tests: [str]):
                 return results
     
     # ### MUTATIONS
-    # mutants: {str: Callable} = get_mutants(id)
+    mutants: [str] = getMutants(id)
+    for mutant in mutants:
+        mutant_algo, mutant_messages = mutant
+        mutant_runnable: str = getRunnable(id, tests, mutant_algo)
+
+        local = {}
+        exec(mutant_runnable, {}, local)
+
+        mutant_results = local['results']
+
+        # missing test case for a mutation (all True for a mutation)
+        if all(mutant_results.values()):
+            results['status'] = 'missing'
+            if 'messages' not in results:
+                results['messages'] = []
+            for mutant_message in mutant_messages:
+                results['messages'].append(mutant_message)
+        print("mutant results")
+        print(mutant_results)
+    
+    return results
 
     # # Mutants alive by default
     # killed: {str: bool} = {}
